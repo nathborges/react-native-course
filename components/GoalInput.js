@@ -4,10 +4,14 @@ import { View, Button, TextInput, StyleSheet, Modal } from 'react-native';
 const GoalInput = props => {
     const [enteredGoal, setEnteredGoal] = useState('');
 
-    const goalInputHandler = (enteredText) => {
+    const goalInputHandler = enteredText => {
+        setEnteredGoal(enteredText);
+    };
+
+    const addGoalHandler = () => {
         props.onAddGoal(enteredGoal);
         setEnteredGoal('');
-    };
+      };
 
     return (
         <Modal visible={props.visible}>
@@ -19,8 +23,12 @@ const GoalInput = props => {
                     value={enteredGoal}
                 />
                 <View style={styles.buttonsContainer}>
-                    <Button title = "ADD" onPress={props.onAddGoal.bind(this, enteredGoal)} />
-                    <Button title = "CANCEL" color="red" onPress={props.onCancel} />
+                    <View style={styles.button}>
+                        <Button title = "ADD" onPress={addGoalHandler} />
+                    </View>
+                    <View style={styles.button}>
+                        <Button title = "CANCEL" color="red" onPress={props.onCancel} />
+                    </View>
                 </View>
             </View>
         </Modal>
@@ -43,6 +51,9 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    button: {
+        width: '40%'
     }
 });
 
